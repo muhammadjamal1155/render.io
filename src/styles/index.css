@@ -15,8 +15,10 @@
   body {
     @apply bg-bg-primary text-zinc-100 font-sans antialiased;
     background-image:
-      radial-gradient(circle at top, rgba(0, 229, 255, 0.08), transparent 40%),
-      linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
+      radial-gradient(circle at top left, rgba(49, 217, 255, 0.16), transparent 28%),
+      radial-gradient(circle at top right, rgba(255, 189, 66, 0.12), transparent 24%),
+      radial-gradient(circle at 50% 110%, rgba(52, 230, 161, 0.08), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
     background-attachment: fixed;
   }
 
@@ -32,12 +34,16 @@
 
 @layer components {
   .panel-shell {
-    @apply rounded-2xl border border-border-subtle bg-bg-secondary/95 shadow-[0_20px_60px_rgba(0,0,0,0.35)];
+    @apply rounded-2xl border border-border-subtle bg-bg-secondary/90 shadow-[0_24px_70px_rgba(0,0,0,0.38)];
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 0 0 1px rgba(49, 217, 255, 0.02);
   }
 
   .panel-grid {
     background-image:
-      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
     background-size: 24px 24px;
   }
 

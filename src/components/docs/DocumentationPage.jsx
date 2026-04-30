@@ -1,4 +1,8 @@
+import { usePlayground } from '../../context/PlaygroundContext'
+
 export default function DocumentationPage() {
+  const { setActiveView } = usePlayground()
+
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 px-4 py-6 lg:px-6 lg:pb-6">
       <section className="panel-shell p-5">
@@ -13,6 +17,13 @@ export default function DocumentationPage() {
             This page explains what React.memo, useMemo, and useCallback do, and how to compare
             the optimized and unoptimized versions in the playground.
           </p>
+          <button
+            type="button"
+            onClick={() => setActiveView('playground')}
+            className="mt-3 rounded-full border border-accent-cyan/40 bg-accent-cyan/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-colors hover:border-accent-cyan/60"
+          >
+            Open Playground
+          </button>
         </div>
       </section>
 

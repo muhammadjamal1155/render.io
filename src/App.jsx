@@ -4,15 +4,20 @@ import ControlBar from './components/layout/ControlBar'
 import OptimizationToggles from './components/layout/OptimizationToggles'
 import TechniqueSection from './components/comparison/TechniqueSection'
 import LazySection from './components/lazy/LazySection'
+import DocumentationPage from './components/docs/DocumentationPage'
+import { usePlayground } from './context/PlaygroundContext'
 
 const techniqueSections = ['memo', 'useMemo', 'useCallback']
 
-export default function App() {
-  return (
-    <PlaygroundProvider>
-      <div className="flex min-h-screen flex-col bg-[radial-gradient(circle_at_top,rgba(0,229,255,0.07),transparent_35%),linear-gradient(rgba(255,255,255,0.02),rgba(255,255,255,0.02))]">
-        <TopNav />
+function AppContent() {
+  const { state } = usePlayground()
 
+  return (
+    <div className="flex min-h-screen flex-col bg-[radial-gradient(circle_at_top,rgba(0,229,255,0.07),transparent_35%),linear-gradient(rgba(255,255,255,0.02),rgba(255,255,255,0.02))]">
+      <TopNav />
+      {state.activeView === 'documentation' ? (
+        <DocumentationPage />
+      ) : (
         <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 px-4 py-6 lg:px-6 lg:pb-6">
           <div className="panel-shell p-5">
             <div className="space-y-3">
@@ -69,7 +74,15 @@ export default function App() {
 
           <LazySection />
         </main>
-      </div>
+      )}
+    </div>
+  )
+}
+
+export default function App() {
+  return (
+    <PlaygroundProvider>
+      <AppContent />
     </PlaygroundProvider>
   )
 }

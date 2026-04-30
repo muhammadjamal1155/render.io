@@ -5,19 +5,21 @@ export default {
     extend: {
       colors: {
         bg: {
-          primary: '#0d0d0f',
-          secondary: '#141416',
-          tertiary: '#1c1c1f',
+          primary: '#070b14',
+          secondary: '#0d1422',
+          tertiary: '#131c2f',
         },
         accent: {
-          cyan: '#00e5ff',
-          amber: '#ffb300',
-          red: '#ff4444',
-          green: '#00c853',
+          cyan: '#31d9ff',
+          amber: '#ffbd42',
+          red: '#ff6377',
+          green: '#34e6a1',
+          ice: '#8de9ff',
+          sand: '#ffd97a',
         },
         border: {
-          subtle: '#2a2a2e',
-          bright: '#3a3a3f',
+          subtle: '#23304a',
+          bright: '#31415f',
         },
       },
       fontFamily: {

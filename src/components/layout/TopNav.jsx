@@ -77,17 +77,21 @@ export default function TopNav() {
           >
             Documentation
           </button>
-          <div className="mx-1 h-5 w-px bg-border-subtle" />
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => scrollToSection(item.id)}
-              className="rounded-full border border-border-subtle bg-bg-secondary px-3 py-1.5 text-xs font-medium text-zinc-400 transition-colors hover:border-border-bright hover:text-zinc-200"
-            >
-              {item.label}
-            </button>
-          ))}
+          {state.activeView === 'playground' ? (
+            <>
+              <div className="mx-1 h-5 w-px bg-border-subtle" />
+              {NAV_ITEMS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.id)}
+                  className="rounded-full border border-border-subtle bg-bg-secondary px-3 py-1.5 text-xs font-medium text-zinc-400 transition-colors hover:border-border-bright hover:text-zinc-200"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </>
+          ) : null}
         </nav>
       </div>
     </header>
