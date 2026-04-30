@@ -1,0 +1,47 @@
+@import 'prismjs/themes/prism-okaidia.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg-primary text-zinc-100 font-sans antialiased;
+    background-image:
+      radial-gradient(circle at top, rgba(0, 229, 255, 0.08), transparent 40%),
+      linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
+    background-attachment: fixed;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(0, 229, 255, 0.25);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .panel-shell {
+    @apply rounded-2xl border border-border-subtle bg-bg-secondary/95 shadow-[0_20px_60px_rgba(0,0,0,0.35)];
+  }
+
+  .panel-grid {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .glass-border {
+    @apply border border-white/5;
+  }
+}

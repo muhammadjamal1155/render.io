@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#0D0D0F"/>
+  <rect x="32" y="32" width="1216" height="656" rx="24" fill="#141416" stroke="#2A2A2E"/>
+  <rect x="64" y="64" width="1152" height="96" rx="20" fill="#1C1C1F" stroke="#2A2A2E"/>
+  <text x="96" y="112" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="32" font-weight="700">React Performance Playground</text>
+  <text x="96" y="142" fill="#A3A3A3" font-family="Arial, sans-serif" font-size="16">Overview: control bar, optimization toggles, demo sections, and live insights rail</text>
+  <rect x="64" y="184" width="760" height="488" rx="20" fill="#1C1C1F" stroke="#2A2A2E"/>
+  <rect x="848" y="184" width="368" height="488" rx="20" fill="#1C1C1F" stroke="#2A2A2E"/>
+  <text x="96" y="228" fill="#00E5FF" font-family="Arial, sans-serif" font-size="18" font-weight="700">Interactive demos</text>
+  <text x="880" y="228" fill="#00E5FF" font-family="Arial, sans-serif" font-size="18" font-weight="700">Insights rail</text>
+  <rect x="96" y="258" width="312" height="132" rx="16" fill="#141416" stroke="#2A2A2E"/>
+  <rect x="428" y="258" width="312" height="132" rx="16" fill="#141416" stroke="#2A2A2E"/>
+  <rect x="96" y="410" width="644" height="232" rx="16" fill="#141416" stroke="#2A2A2E"/>
+  <rect x="880" y="258" width="304" height="132" rx="16" fill="#141416" stroke="#2A2A2E"/>
+  <rect x="880" y="410" width="304" height="232" rx="16" fill="#141416" stroke="#2A2A2E"/>
+  <text x="120" y="300" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="20" font-weight="700">Control bar</text>
+  <text x="452" y="300" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="20" font-weight="700">Optimization toggles</text>
+  <text x="120" y="452" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="20" font-weight="700">Comparison sections</text>
+  <text x="904" y="300" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="20" font-weight="700">Explanation panel</text>
+  <text x="904" y="452" fill="#F5F5F5" font-family="Arial, sans-serif" font-size="20" font-weight="700">Render dashboard</text>
+</svg>
