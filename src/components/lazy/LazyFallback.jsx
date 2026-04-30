@@ -1,7 +1,7 @@
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 
-export default function LazyFallback() {
-  const renderCount = useRenderTracker('LazyFallback', 'right')
+export default function LazyFallback({ resetVersion }) {
+  const renderCount = useRenderTracker('LazyFallback', 'right', resetVersion)
 
   return (
     <div className="animate-pulse rounded-2xl border border-border-subtle bg-bg-tertiary/80 p-4">

@@ -1,4 +1,10 @@
-export default function RangeSlider({ value, onChange, min = 0, max = 100, label }) {
+import { memo, useCallback } from 'react'
+
+function RangeSliderBase({ value, onChange, min = 0, max = 100, label }) {
+  const handleChange = useCallback((event) => {
+    onChange(Number(event.target.value))
+  }, [onChange])
+
   return (
     <label className="grid gap-3 rounded-2xl border border-border-subtle bg-bg-tertiary/80 px-4 py-3">
       <div className="flex items-center justify-between gap-4">
@@ -10,9 +16,11 @@ export default function RangeSlider({ value, onChange, min = 0, max = 100, label
         min={min}
         max={max}
         value={value}
-        onChange={(event) => onChange(Number(event.target.value))}
+        onChange={handleChange}
         className="h-2 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-cyan-400"
       />
     </label>
   )
 }
+
+export default memo(RangeSliderBase)

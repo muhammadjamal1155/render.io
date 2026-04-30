@@ -1,5 +1,5 @@
 import { usePlayground } from '../../context/PlaygroundContext'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RangeSlider from '../ui/RangeSlider'
 import RenderCountBadge from '../ui/RenderCountBadge'
@@ -12,10 +12,22 @@ export default function ControlBar() {
     setSliderValue,
     forceRender,
     resetPlayground,
-    setActivePanel,
   } = usePlayground()
   const [lastAction, setLastAction] = useState('Type or move the slider to begin.')
-  const renderCount = useRenderTracker('ControlBar')
+  const renderCount = useRenderTracker('ControlBar', 'right', state.resetVersion)
+
+  const handleInputChange = useCallback((event) => {
+    const value = event.target.value
+    setLastAction(`Typed ${value.length} characters`)
+    // Update input immediately without transition
+    setControlValue(value)
+  }, [setControlValue])
+
+  const handleSliderChange = useCallback((value) => {
+    setLastAction(`Slider set to ${value}`)
+    // Update slider immediately without transition
+    setSliderValue(value)
+  }, [setSliderValue])
 
   return (
     <section className="panel-shell p-5">
@@ -36,10 +48,7 @@ export default function ControlBar() {
           </div>
           <input
             value={state.controlValue}
-            onChange={(event) => {
-              setControlValue(event.target.value)
-              setLastAction(`Typed ${event.target.value.length} characters`)
-            }}
+            onChange={handleInputChange}
             placeholder="Type here to trigger a parent re-render..."
             className="w-full rounded-xl border border-border-subtle bg-bg-secondary px-4 py-3 font-mono text-sm text-zinc-100 outline-none transition-colors duration-150 placeholder:text-zinc-600 focus:border-accent-cyan/50"
           />
@@ -48,10 +57,7 @@ export default function ControlBar() {
         <RangeSlider
           label="Slider value"
           value={state.sliderValue}
-          onChange={(value) => {
-            setSliderValue(value)
-            setLastAction(`Slider set to ${value}`)
-          }}
+          onChange={handleSliderChange}
           min={0}
           max={100}
         />
@@ -103,13 +109,6 @@ export default function ControlBar() {
           className="rounded-full border border-border-bright bg-bg-secondary px-4 py-2 text-sm font-medium text-zinc-100 transition-colors duration-150 hover:border-accent-amber/50 hover:text-amber-200"
         >
           Reset Playground
-        </button>
-        <button
-          type="button"
-          onClick={() => setActivePanel('memo')}
-          className="rounded-full border border-border-bright bg-bg-secondary px-4 py-2 text-sm font-medium text-zinc-100 transition-colors duration-150 hover:border-accent-green/50 hover:text-emerald-200"
-        >
-          Focus memo panel
         </button>
       </div>
     </section>

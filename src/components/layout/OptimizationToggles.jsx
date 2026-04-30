@@ -11,7 +11,7 @@ export default function OptimizationToggles() {
     setUseMemoEnabled,
     setUseCallbackEnabled,
   } = usePlayground()
-  const renderCount = useRenderTracker('OptimizationToggles')
+  const renderCount = useRenderTracker('OptimizationToggles', 'right', state.resetVersion)
 
   return (
     <section className="panel-shell p-5">

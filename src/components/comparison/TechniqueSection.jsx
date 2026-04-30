@@ -9,9 +9,9 @@ import ParentComponent from './ParentComponent'
 import RenderCountBadge from '../ui/RenderCountBadge'
 
 export default function TechniqueSection({ techniqueId }) {
-  const { state, setActivePanel } = usePlayground()
+  const { state } = usePlayground()
   const technique = techniquesById[techniqueId]
-  const renderCount = useRenderTracker(`TechniqueSection:${techniqueId}`)
+  const renderCount = useRenderTracker(`TechniqueSection:${techniqueId}`, 'right', state.resetVersion)
 
   if (!technique) {
     return null
@@ -23,18 +23,7 @@ export default function TechniqueSection({ techniqueId }) {
         eyebrow={`demo ${techniqueId}`}
         title={technique.title}
         description={technique.description}
-        action={
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setActivePanel(techniqueId)}
-              className="rounded-full border border-border-bright bg-bg-secondary px-4 py-2 text-sm font-medium text-zinc-100 transition-colors duration-150 hover:border-accent-cyan/50 hover:text-cyan-200"
-            >
-              Open explanation
-            </button>
-            <RenderCountBadge count={renderCount} />
-          </div>
-        }
+        action={<RenderCountBadge count={renderCount} />}
       />
 
       <ComparisonLayout
@@ -44,6 +33,7 @@ export default function TechniqueSection({ techniqueId }) {
         <UnoptimizedSide
           title="Unoptimized"
           note="Always renders the straightforward version."
+          resetVersion={state.resetVersion}
         >
           <ParentComponent techniqueId={techniqueId} side="left" />
         </UnoptimizedSide>
@@ -54,6 +44,7 @@ export default function TechniqueSection({ techniqueId }) {
               ? 'Optimization is active.'
               : 'Optimization toggle is off.'
           }
+          resetVersion={state.resetVersion}
         >
           <ParentComponent techniqueId={techniqueId} side="right" />
         </OptimizedSide>

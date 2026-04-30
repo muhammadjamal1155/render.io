@@ -28,25 +28,14 @@ function GuidanceList({ title, items, tone = 'text-zinc-200' }) {
 }
 
 export default function TechniqueCard({ technique, enabled, stats }) {
-  const principleText = enabled ? technique.principle.on : technique.principle.off
-
   if (technique.id === 'lazy') {
     return (
       <div className="space-y-5 rounded-2xl border border-border-subtle bg-bg-secondary p-5">
-        <StatusIndicator title={technique.title} enabled={enabled} />
+        <StatusIndicator technique={technique} />
 
-        <div className="space-y-2">
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-cyan-300/80">
-            Live principle
-          </p>
-          <PrincipleDescription text={principleText} />
-        </div>
+        <PrincipleDescription technique={technique} />
 
-        <CodeDiff
-          unoptimizedCode={technique.unoptimizedCode}
-          optimizedCode={technique.optimizedCode}
-          optimizedEnabled={enabled}
-        />
+        <CodeDiff technique={technique} />
 
         <div className="grid gap-3 md:grid-cols-3">
           <StatBlock label="Fallback" value={`${stats.fallbackCount ?? 0} renders`} />
@@ -93,20 +82,11 @@ export default function TechniqueCard({ technique, enabled, stats }) {
 
   return (
     <div className="space-y-5 rounded-2xl border border-border-subtle bg-bg-secondary p-5">
-      <StatusIndicator title={technique.title} enabled={enabled} />
+      <StatusIndicator technique={technique} />
 
-      <div className="space-y-2">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-cyan-300/80">
-          Live principle
-        </p>
-        <PrincipleDescription text={principleText} />
-      </div>
+      <PrincipleDescription technique={technique} />
 
-      <CodeDiff
-        unoptimizedCode={technique.unoptimizedCode}
-        optimizedCode={technique.optimizedCode}
-        optimizedEnabled={enabled}
-      />
+      <CodeDiff technique={technique} />
 
       <div className="grid gap-3 md:grid-cols-3">
         <StatBlock

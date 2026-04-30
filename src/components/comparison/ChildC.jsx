@@ -2,8 +2,8 @@ import { memo, useState } from 'react'
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RenderCountBadge from '../ui/RenderCountBadge'
 
-function ChildCBase({ onAction, side, label }) {
-  const renderCount = useRenderTracker('ChildC', side)
+function ChildCBase({ onAction, side, label, resetVersion }) {
+  const renderCount = useRenderTracker('ChildC', side, resetVersion)
   const [clickCount, setClickCount] = useState(0)
 
   const handleClick = () => {
@@ -45,6 +45,6 @@ function ChildCBase({ onAction, side, label }) {
 
 const MemoChildC = memo(ChildCBase)
 
-export default function ChildC({ onAction, side, label }) {
-  return <MemoChildC onAction={onAction} side={side} label={label} />
+export default function ChildC({ onAction, side, label, resetVersion }) {
+  return <MemoChildC onAction={onAction} side={side} label={label} resetVersion={resetVersion} />
 }

@@ -7,6 +7,7 @@ export const initialState = {
   controlValue: '',
   sliderValue: 50,
   activePanel: 'memo',
+  activeView: 'playground',
   forceTick: 0,
   resetVersion: 0,
 }
@@ -25,12 +26,14 @@ export function playgroundReducer(state, action) {
       return { ...state, sliderValue: action.payload }
     case 'SET_ACTIVE_PANEL':
       return { ...state, activePanel: action.payload }
+    case 'SET_ACTIVE_VIEW':
+      return { ...state, activeView: action.payload }
     case 'FORCE_RENDER':
       return { ...state, forceTick: state.forceTick + 1 }
     case 'RESET_PLAYGROUND':
       return {
         ...initialState,
-        resetVersion: state.resetVersion,
+        resetVersion: state.resetVersion + 1,
       }
     case 'RESET_RENDER_COUNTS':
       return { ...state, resetVersion: state.resetVersion + 1 }
@@ -68,6 +71,10 @@ export function PlaygroundProvider({ children }) {
     (payload) => dispatch({ type: 'SET_ACTIVE_PANEL', payload }),
     [],
   )
+  const setActiveView = useCallback(
+    (payload) => dispatch({ type: 'SET_ACTIVE_VIEW', payload }),
+    [],
+  )
   const forceRender = useCallback(() => dispatch({ type: 'FORCE_RENDER' }), [])
   const resetPlayground = useCallback(() => dispatch({ type: 'RESET_PLAYGROUND' }), [])
   const resetRenderCounts = useCallback(
@@ -85,6 +92,7 @@ export function PlaygroundProvider({ children }) {
       setControlValue,
       setSliderValue,
       setActivePanel,
+      setActiveView,
       forceRender,
       resetPlayground,
       resetRenderCounts,
@@ -98,6 +106,7 @@ export function PlaygroundProvider({ children }) {
       setControlValue,
       setSliderValue,
       setActivePanel,
+      setActiveView,
       forceRender,
       resetPlayground,
       resetRenderCounts,

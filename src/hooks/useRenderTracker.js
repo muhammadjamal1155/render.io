@@ -1,16 +1,15 @@
 import { useEffect, useRef } from 'react'
-import { usePlayground } from '../context/PlaygroundContext'
 import { appendRenderEvent } from './useRenderLog'
 
 function createId() {
   return globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
 }
 
-export function useRenderTracker(componentName, side = 'right') {
-  const { resetVersion } = usePlayground()
+export function useRenderTracker(componentName, side = 'right', resetVersion = 0) {
   const renderCountRef = useRef(0)
   const lastResetRef = useRef(resetVersion)
   const skipNextLogRef = useRef(false)
+  const mountedRef = useRef(false)
 
   if (lastResetRef.current !== resetVersion) {
     lastResetRef.current = resetVersion
@@ -22,6 +21,11 @@ export function useRenderTracker(componentName, side = 'right') {
   const renderCount = renderCountRef.current
 
   useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true
+      return
+    }
+
     if (skipNextLogRef.current) {
       skipNextLogRef.current = false
       return

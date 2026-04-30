@@ -1,8 +1,8 @@
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RenderCountBadge from '../ui/RenderCountBadge'
 
-export default function UnoptimizedSide({ children, title = 'Unoptimized', note }) {
-  const renderCount = useRenderTracker('UnoptimizedSide', 'left')
+export default function UnoptimizedSide({ children, title = 'Unoptimized', note, resetVersion }) {
+  const renderCount = useRenderTracker('UnoptimizedSide', 'left', resetVersion)
 
   return (
     <article className="flex h-full flex-col rounded-2xl border border-red-500/20 bg-[linear-gradient(180deg,rgba(255,68,68,0.08),rgba(20,20,22,0.95))] p-4">

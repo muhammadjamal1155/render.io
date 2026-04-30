@@ -145,3 +145,9 @@ const HeavyComponentB = React.lazy(() =>
 ]
 
 export const techniquesById = Object.fromEntries(techniques.map((technique) => [technique.id, technique]))
+
+// Safe getter for technique enabled state — handles toggleKey: null for lazy section
+export function getTechniqueEnabled(technique, state) {
+  if (!technique.toggleKey) return true   // lazy is always "enabled"
+  return Boolean(state[technique.toggleKey])
+}

@@ -8,9 +8,9 @@ import RenderCountBadge from '../ui/RenderCountBadge'
 
 export default function ParentComponent({ techniqueId, side }) {
   const {
-    state: { controlValue, sliderValue, memoEnabled, useMemoEnabled, useCallbackEnabled },
+    state: { controlValue, sliderValue, memoEnabled, useMemoEnabled, useCallbackEnabled, resetVersion },
   } = usePlayground()
-  const renderCount = useRenderTracker('ParentComponent', side)
+  const renderCount = useRenderTracker('ParentComponent', side, resetVersion)
 
   const label = `Slider value ${sliderValue}`
   const itemsKey = sliderValue
@@ -50,11 +50,21 @@ export default function ParentComponent({ techniqueId, side }) {
       </div>
 
       {techniqueId === 'memo' ? (
-        <ChildA label={label} side={side} memoEnabled={shouldMemoize && memoEnabled} />
+        <ChildA
+          label={label}
+          side={side}
+          memoEnabled={shouldMemoize && memoEnabled}
+          resetVersion={resetVersion}
+        />
       ) : null}
 
       {techniqueId === 'useMemo' ? (
-        <ChildB itemsKey={itemsKey} side={side} useMemoEnabled={shouldMemoize && useMemoEnabled} />
+        <ChildB
+          itemsKey={itemsKey}
+          side={side}
+          useMemoEnabled={shouldMemoize && useMemoEnabled}
+          resetVersion={resetVersion}
+        />
       ) : null}
 
       {techniqueId === 'useCallback' ? (
@@ -62,6 +72,7 @@ export default function ParentComponent({ techniqueId, side }) {
           onAction={shouldMemoize && useCallbackEnabled ? handleAction : inlineAction}
           side={side}
           label={`Dependency value ${sliderValue}`}
+          resetVersion={resetVersion}
         />
       ) : null}
     </div>

@@ -1,17 +1,25 @@
-export default function StatusIndicator({ title, enabled }) {
+import { usePlayground } from '../../context/PlaygroundContext'
+import { getTechniqueEnabled } from '../../data/techniques'
+
+export default function StatusIndicator({ technique }) {
+  const { state } = usePlayground()
+  const isEnabled = getTechniqueEnabled(technique, state)
+  const showToggle = technique.toggleKey !== null
+
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2">
       <span
-        className={`h-2.5 w-2.5 rounded-full ${
-          enabled ? 'bg-accent-green shadow-[0_0_0_4px_rgba(0,200,83,0.12)]' : 'bg-zinc-500'
-        }`}
+        className={[
+          'h-2 w-2 rounded-full',
+          isEnabled ? 'bg-emerald-400 shadow-[0_0_6px_#00c853]' : 'bg-zinc-600',
+        ].join(' ')}
       />
-      <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-400">{title}</p>
-        <p className={`text-sm font-semibold ${enabled ? 'text-emerald-200' : 'text-zinc-300'}`}>
-          {enabled ? 'ACTIVE' : 'INACTIVE'}
-        </p>
-      </div>
+      <span className={[
+        'font-mono text-xs font-semibold tracking-widest uppercase',
+        isEnabled ? 'text-emerald-400' : 'text-zinc-500',
+      ].join(' ')}>
+        {!showToggle ? 'DEMO' : isEnabled ? 'ACTIVE' : 'INACTIVE'}
+      </span>
     </div>
   )
 }

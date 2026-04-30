@@ -33,8 +33,8 @@ function LoadStats({ label, value }) {
 }
 
 export default function LazySection({ delayA = 1200, delayB = 800 }) {
-  const { setActivePanel } = usePlayground()
-  const renderCount = useRenderTracker('LazySection')
+  const { setActivePanel, state: { resetVersion } } = usePlayground()
+  const renderCount = useRenderTracker('LazySection', 'right', resetVersion)
   const [reloadKeyA, setReloadKeyA] = useState(0)
   const [reloadKeyB, setReloadKeyB] = useState(0)
   const [showA, setShowA] = useState(false)
@@ -127,8 +127,8 @@ export default function LazySection({ delayA = 1200, delayB = 800 }) {
             <LoadStats label="Load time" value={loadMsA == null ? 'waiting' : `${loadMsA}ms`} />
           </div>
           {showA ? (
-            <Suspense fallback={<LazyFallback />}>
-              <LazyA startedAt={startedAtA.current} onLoaded={setLoadMsA} />
+            <Suspense fallback={<LazyFallback resetVersion={resetVersion} />}>
+              <LazyA startedAt={startedAtA.current} onLoaded={setLoadMsA} resetVersion={resetVersion} />
             </Suspense>
           ) : (
             <div className="grid place-items-center rounded-2xl border border-dashed border-border-subtle bg-bg-secondary/60 px-4 py-10 text-center text-sm text-zinc-400">
@@ -146,8 +146,8 @@ export default function LazySection({ delayA = 1200, delayB = 800 }) {
             <LoadStats label="Load time" value={loadMsB == null ? 'waiting' : `${loadMsB}ms`} />
           </div>
           {showB ? (
-            <Suspense fallback={<LazyFallback />}>
-              <LazyB startedAt={startedAtB.current} onLoaded={setLoadMsB} />
+            <Suspense fallback={<LazyFallback resetVersion={resetVersion} />}>
+              <LazyB startedAt={startedAtB.current} onLoaded={setLoadMsB} resetVersion={resetVersion} />
             </Suspense>
           ) : (
             <div className="grid place-items-center rounded-2xl border border-dashed border-border-subtle bg-bg-secondary/60 px-4 py-10 text-center text-sm text-zinc-400">

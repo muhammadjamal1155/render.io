@@ -1,30 +1,24 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RenderCountBadge from '../ui/RenderCountBadge'
 import { fibonacci } from '../../utils/fibonacci'
-import { appendRenderEvent } from '../../hooks/useRenderLog'
 
-function ChildBPlain({ itemsKey, side }) {
-  const renderCount = useRenderTracker('ChildB', side)
-  const computeCountRef = useRef(0)
+// Module-level compute counters keyed by side
+// Persists across component remounts when toggle flips
+const computeCountMap = {
+  left: { current: 0 },
+  right: { current: 0 },
+}
+
+function ChildBPlain({ itemsKey, side, resetVersion }) {
+  const renderCount = useRenderTracker('ChildB', side, resetVersion)
+  const computeCountRef = computeCountMap[side] ?? { current: 0 }
 
   const start = performance.now()
   const value = fibonacci(38)
   const computeMs = Math.round(performance.now() - start)
   computeCountRef.current += 1
   const computeCount = computeCountRef.current
-
-  useEffect(() => {
-    appendRenderEvent({
-      component: 'ChildB',
-      side,
-      timestamp: Date.now(),
-      renderCount,
-      kind: 'compute',
-      computeMs,
-      itemsKey,
-    })
-  }, [computeMs, side, renderCount, itemsKey])
 
   return (
     <div className="rounded-2xl border border-border-subtle bg-bg-secondary p-4">
@@ -49,9 +43,9 @@ function ChildBPlain({ itemsKey, side }) {
   )
 }
 
-function ChildBMemoized({ itemsKey, side }) {
-  const renderCount = useRenderTracker('ChildB', side)
-  const computeCountRef = useRef(0)
+function ChildBMemoized({ itemsKey, side, resetVersion }) {
+  const renderCount = useRenderTracker('ChildB', side, resetVersion)
+  const computeCountRef = computeCountMap[side] ?? { current: 0 }
 
   const computation = useMemo(() => {
     const start = performance.now()
@@ -65,18 +59,6 @@ function ChildBMemoized({ itemsKey, side }) {
       computeCount: computeCountRef.current,
     }
   }, [itemsKey])
-
-  useEffect(() => {
-    appendRenderEvent({
-      component: 'ChildB',
-      side,
-      timestamp: Date.now(),
-      renderCount,
-      kind: 'compute',
-      computeMs: computation.computeMs,
-      itemsKey,
-    })
-  }, [computation, side])
 
   return (
     <div className="rounded-2xl border border-border-subtle bg-bg-secondary p-4">
@@ -103,10 +85,10 @@ function ChildBMemoized({ itemsKey, side }) {
   )
 }
 
-export default function ChildB({ itemsKey, side, useMemoEnabled }) {
+export default function ChildB({ itemsKey, side, useMemoEnabled, resetVersion }) {
   return useMemoEnabled ? (
-    <ChildBMemoized itemsKey={itemsKey} side={side} />
+    <ChildBMemoized itemsKey={itemsKey} side={side} resetVersion={resetVersion} />
   ) : (
-    <ChildBPlain itemsKey={itemsKey} side={side} />
+    <ChildBPlain itemsKey={itemsKey} side={side} resetVersion={resetVersion} />
   )
 }

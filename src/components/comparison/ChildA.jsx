@@ -2,8 +2,8 @@ import { memo } from 'react'
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RenderCountBadge from '../ui/RenderCountBadge'
 
-function ChildABase({ label, side }) {
-  const renderCount = useRenderTracker('ChildA', side)
+function ChildABase({ label, side, resetVersion }) {
+  const renderCount = useRenderTracker('ChildA', side, resetVersion)
 
   return (
     <div className="rounded-2xl border border-border-subtle bg-bg-secondary p-4">
@@ -29,6 +29,6 @@ function ChildABase({ label, side }) {
 
 const MemoChildA = memo(ChildABase)
 
-export default function ChildA({ label, side, memoEnabled }) {
-  return memoEnabled ? <MemoChildA label={label} side={side} /> : <ChildABase label={label} side={side} />
+export default function ChildA({ label, side, memoEnabled, resetVersion }) {
+  return memoEnabled ? <MemoChildA label={label} side={side} resetVersion={resetVersion} /> : <ChildABase label={label} side={side} resetVersion={resetVersion} />
 }

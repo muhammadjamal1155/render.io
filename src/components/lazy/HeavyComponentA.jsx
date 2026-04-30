@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useRenderTracker } from '../../hooks/useRenderTracker'
 import RenderCountBadge from '../ui/RenderCountBadge'
 
-export default function HeavyComponentA({ startedAt, onLoaded }) {
-  const renderCount = useRenderTracker('HeavyComponentA', 'right')
+export default function HeavyComponentA({ startedAt, onLoaded, resetVersion }) {
+  const renderCount = useRenderTracker('HeavyComponentA', 'right', resetVersion)
 
   useEffect(() => {
     if (typeof onLoaded === 'function') {
